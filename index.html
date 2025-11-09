@@ -52,10 +52,8 @@
     }
     
     body {
-      background: linear-gradient(135deg, #0a0a0f, #16213e, #0f3460, #1a1a2e);
-      background-size: 400% 400%;
-      animation: gradientShift 15s ease infinite;
-      color: white;
+      background: #1e1f22;
+      color: #dbdee1;
       font-family: 'Inter', sans-serif;
       display: flex;
       flex-direction: column;
@@ -65,6 +63,50 @@
       text-align: center;
       padding: 2rem;
       overflow-x: hidden;
+      position: relative;
+    }
+    
+    .stars {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+    
+    .star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: white;
+      border-radius: 50%;
+      animation: twinkle linear infinite;
+    }
+    
+    @keyframes twinkle {
+      0% {
+        opacity: 0;
+        transform: translateY(100vh) scale(0);
+      }
+      10% {
+        opacity: 1;
+        transform: translateY(90vh) scale(1);
+      }
+      90% {
+        opacity: 1;
+        transform: translateY(10vh) scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(0) scale(0);
+      }
+    }
+    
+    .hero, .modal {
+      position: relative;
+      z-index: 1;
     }
     
     .hero {
@@ -74,12 +116,11 @@
     
     h1 {
       font-size: 3.5rem;
-      background: linear-gradient(135deg, #5865f2, #57f287, #5865f2);
+      background: linear-gradient(135deg, #5865f2, #7289da);
       background-size: 200% 200%;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       margin-bottom: 1rem;
-      animation: gradientShift 3s ease infinite;
     }
     
     h1 i {
@@ -88,7 +129,7 @@
     }
     
     .subtitle {
-      color: #b9bbbe;
+      color: #949ba4;
       max-width: 600px;
       margin: 0 auto 2rem;
       font-size: 1.1rem;
@@ -97,7 +138,7 @@
     
     .button-group {
       display: flex;
-      gap: 1.5rem;
+      gap: 1rem;
       justify-content: center;
       flex-wrap: wrap;
       margin-bottom: 2rem;
@@ -108,15 +149,15 @@
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      padding: 1rem 2rem;
-      border-radius: 12px;
+      padding: 0.875rem 1.5rem;
+      border-radius: 8px;
       color: white;
       text-decoration: none;
       font-weight: 600;
-      transition: all 0.3s ease;
+      transition: all 0.2s ease;
       border: none;
       cursor: pointer;
-      font-size: 1rem;
+      font-size: 0.95rem;
       position: relative;
       overflow: hidden;
     }
@@ -128,7 +169,7 @@
       left: -100%;
       width: 100%;
       height: 100%;
-      background: rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.1);
       transition: left 0.5s ease;
     }
     
@@ -137,35 +178,37 @@
     }
     
     .btn-primary {
-      background: linear-gradient(135deg, #5865f2, #7289da);
-      box-shadow: 0 4px 15px rgba(88, 101, 242, 0.4);
+      background: #5865f2;
     }
     
     .btn-primary:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 6px 25px rgba(88, 101, 242, 0.6);
+      background: #4752c4;
     }
     
     .btn-secondary {
-      background: linear-gradient(135deg, #57f287, #3ba55d);
-      box-shadow: 0 4px 15px rgba(87, 242, 135, 0.4);
+      background: #3ba55d;
     }
     
     .btn-secondary:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 6px 25px rgba(87, 242, 135, 0.6);
+      background: #2d7d46;
     }
     
     .btn-outline {
-      background: transparent;
-      border: 2px solid #5865f2;
-      box-shadow: 0 4px 15px rgba(88, 101, 242, 0.2);
+      background: #2b2d31;
+      border: 1px solid #3f4147;
     }
     
     .btn-outline:hover {
-      background: rgba(88, 101, 242, 0.1);
-      transform: translateY(-3px);
-      box-shadow: 0 6px 25px rgba(88, 101, 242, 0.4);
+      background: #35373c;
+      border-color: #4e5058;
+    }
+    
+    .btn-docs {
+      background: #23a559;
+    }
+    
+    .btn-docs:hover {
+      background: #1a8245;
     }
     
     .modal {
@@ -175,8 +218,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.8);
-      backdrop-filter: blur(10px);
+      background: rgba(0, 0, 0, 0.85);
       z-index: 1000;
       align-items: center;
       justify-content: center;
@@ -188,26 +230,43 @@
     }
     
     .modal-content {
-      background: linear-gradient(135deg, #1a1a2e, #16213e);
-      border-radius: 20px;
+      background: #2b2d31;
+      border-radius: 8px;
       padding: 3rem;
       max-width: 900px;
       width: 90%;
       max-height: 90vh;
       overflow-y: auto;
       position: relative;
-      border: 2px solid rgba(88, 101, 242, 0.3);
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
       animation: slideIn 0.5s ease;
+    }
+    
+    .modal-content::-webkit-scrollbar {
+      width: 8px;
+    }
+    
+    .modal-content::-webkit-scrollbar-track {
+      background: #1e1f22;
+      border-radius: 4px;
+    }
+    
+    .modal-content::-webkit-scrollbar-thumb {
+      background: #4e5058;
+      border-radius: 4px;
+    }
+    
+    .modal-content::-webkit-scrollbar-thumb:hover {
+      background: #5d6269;
     }
     
     .close-btn {
       position: absolute;
       top: 1.5rem;
       right: 1.5rem;
-      background: rgba(255, 255, 255, 0.1);
+      background: transparent;
       border: none;
-      color: white;
+      color: #b5bac1;
       font-size: 1.5rem;
       cursor: pointer;
       width: 40px;
@@ -216,35 +275,32 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: all 0.3s ease;
+      transition: all 0.2s ease;
     }
     
     .close-btn:hover {
-      background: rgba(255, 255, 255, 0.2);
-      transform: rotate(90deg);
+      background: #3f4147;
+      color: #dbdee1;
     }
     
     .modal-title {
       font-size: 2rem;
       margin-bottom: 2rem;
-      background: linear-gradient(135deg, #5865f2, #57f287);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      color: #f2f3f5;
     }
     
     .team-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 2rem;
+      gap: 1.5rem;
     }
     
     .team-card {
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(10px);
-      border-radius: 20px;
+      background: #1e1f22;
+      border-radius: 8px;
       padding: 2rem;
-      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.2s ease;
+      border: 1px solid #3f4147;
       animation: fadeInUp 0.5s ease both;
     }
     
@@ -253,123 +309,204 @@
     .team-card:nth-child(3) { animation-delay: 0.3s; }
     
     .team-card:hover {
-      transform: translateY(-15px) scale(1.05);
-      box-shadow: 0 15px 40px rgba(88, 101, 242, 0.4);
-      border-color: rgba(88, 101, 242, 0.5);
+      transform: translateY(-4px);
+      background: #232428;
+      border-color: #4e5058;
     }
     
     .avatar {
-      width: 120px;
-      height: 120px;
+      width: 100px;
+      height: 100px;
       border-radius: 50%;
       margin: 0 auto 1.5rem;
-      background: linear-gradient(135deg, #5865f2, #7289da);
+      background: #5865f2;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 3rem;
+      font-size: 2.5rem;
       font-weight: bold;
       color: white;
-      border: 4px solid rgba(255, 255, 255, 0.2);
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-      transition: all 0.3s ease;
+      transition: all 0.2s ease;
     }
     
     .team-card:hover .avatar {
-      transform: scale(1.1) rotate(5deg);
-      box-shadow: 0 12px 35px rgba(88, 101, 242, 0.5);
+      transform: scale(1.05);
     }
     
     .team-name {
-      font-size: 1.3rem;
+      font-size: 1.2rem;
       font-weight: 700;
       margin-bottom: 0.5rem;
-      color: #fff;
+      color: #f2f3f5;
     }
     
     .team-id {
-      font-size: 0.95rem;
-      color: #b9bbbe;
+      font-size: 0.9rem;
+      color: #949ba4;
       margin-bottom: 0.5rem;
     }
     
     .team-role {
-      font-size: 0.9rem;
-      color: #57f287;
+      font-size: 0.85rem;
+      color: #3ba55d;
       font-weight: 600;
-    }
-    
-    .guide-card {
-      background: rgba(87, 242, 135, 0.1);
-      border: 2px solid rgba(87, 242, 135, 0.3);
+      background: rgba(59, 165, 93, 0.1);
+      padding: 0.25rem 0.75rem;
+      border-radius: 12px;
+      display: inline-block;
     }
     
     .guide-card .avatar {
-      background: linear-gradient(135deg, #57f287, #3ba55d);
+      background: #3ba55d;
     }
     
-    .guide-card:hover {
-      border-color: rgba(87, 242, 135, 0.6);
-      box-shadow: 0 15px 40px rgba(87, 242, 135, 0.4);
+    .guide-card .team-role {
+      color: #5865f2;
+      background: rgba(88, 101, 242, 0.1);
     }
     
     .how-it-works-content {
       text-align: left;
     }
     
-    .feature {
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 15px;
+    .intro-text {
+      color: #b5bac1;
+      margin-bottom: 2rem;
+      font-size: 1.1rem;
       padding: 1.5rem;
-      margin-bottom: 1.5rem;
+      background: #1e1f22;
+      border-radius: 8px;
       border-left: 4px solid #5865f2;
-      transition: all 0.3s ease;
+    }
+    
+    .feature {
+      background: #1e1f22;
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 1.25rem;
+      border-left: 4px solid #5865f2;
+      transition: all 0.2s ease;
       animation: fadeInUp 0.5s ease both;
     }
     
-    .feature:nth-child(1) { animation-delay: 0.1s; }
-    .feature:nth-child(2) { animation-delay: 0.2s; }
-    .feature:nth-child(3) { animation-delay: 0.3s; }
-    .feature:nth-child(4) { animation-delay: 0.4s; }
-    .feature:nth-child(5) { animation-delay: 0.5s; }
+    .feature:nth-child(2) { animation-delay: 0.1s; border-left-color: #3ba55d; }
+    .feature:nth-child(3) { animation-delay: 0.2s; border-left-color: #faa61a; }
+    .feature:nth-child(4) { animation-delay: 0.3s; border-left-color: #f23f43; }
+    .feature:nth-child(5) { animation-delay: 0.4s; border-left-color: #7289da; }
     
     .feature:hover {
-      transform: translateX(10px);
-      background: rgba(255, 255, 255, 0.08);
-      border-left-width: 6px;
+      transform: translateX(8px);
+      background: #232428;
     }
     
     .feature h3 {
-      color: #57f287;
-      margin-bottom: 0.5rem;
+      color: #f2f3f5;
+      margin-bottom: 0.75rem;
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.75rem;
+      font-size: 1.15rem;
     }
     
+    .feature h3 i {
+      color: #5865f2;
+      font-size: 1.25rem;
+    }
+    
+    .feature:nth-child(2) h3 i { color: #3ba55d; }
+    .feature:nth-child(3) h3 i { color: #faa61a; }
+    .feature:nth-child(4) h3 i { color: #f23f43; }
+    .feature:nth-child(5) h3 i { color: #7289da; }
+    
     .feature p {
-      color: #b9bbbe;
+      color: #b5bac1;
       line-height: 1.6;
+      font-size: 0.95rem;
+    }
+    
+    .feature strong {
+      color: #dbdee1;
+    }
+    
+    .docs-content {
+      text-align: left;
+    }
+    
+    .docs-section {
+      background: #1e1f22;
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      animation: fadeInUp 0.5s ease both;
+    }
+    
+    .docs-section:nth-child(1) { animation-delay: 0.1s; }
+    .docs-section:nth-child(2) { animation-delay: 0.2s; }
+    .docs-section:nth-child(3) { animation-delay: 0.3s; }
+    .docs-section:nth-child(4) { animation-delay: 0.4s; }
+    
+    .docs-section h3 {
+      color: #f2f3f5;
+      margin-bottom: 1rem;
+      font-size: 1.3rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    
+    .docs-section h3 i {
+      color: #5865f2;
+    }
+    
+    .docs-section h4 {
+      color: #dbdee1;
+      margin-top: 1rem;
+      margin-bottom: 0.5rem;
+      font-size: 1.05rem;
+    }
+    
+    .docs-section p, .docs-section ul {
+      color: #b5bac1;
+      line-height: 1.7;
+      font-size: 0.95rem;
+    }
+    
+    .docs-section ul {
+      margin-left: 1.5rem;
+      margin-top: 0.5rem;
+    }
+    
+    .docs-section li {
+      margin-bottom: 0.5rem;
+    }
+    
+    .docs-section code {
+      background: #111214;
+      color: #00b0f4;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-family: 'Consolas', 'Monaco', monospace;
+      font-size: 0.9rem;
     }
     
     footer {
       margin-top: 4rem;
       font-size: 0.9rem;
-      color: #72767d;
+      color: #5c5e66;
       padding: 1rem;
       animation: fadeInUp 1s ease 0.6s both;
     }
     
     @media (max-width: 768px) {
       h1 {
-        font-size: 2rem;
+        font-size: 2.5rem;
       }
       .subtitle {
         font-size: 1rem;
       }
       .button-group {
         flex-direction: column;
-        gap: 1rem;
+        gap: 0.75rem;
       }
       .team-grid {
         grid-template-columns: 1fr;
@@ -381,12 +518,14 @@
   </style>
 </head>
 <body>
+  <div class="stars" id="stars"></div>
+  
   <div class="hero">
     <h1><i class="fas fa-comments"></i> Welcome to ChatSphere</h1>
     <p class="subtitle">Experience seamless real-time communication powered by Node.js & Socket.IO</p>
     
     <div class="button-group">
-      <a href="https://chatsphere2.onrender.com/" target="_blank" class="btn btn-primary">
+      <a href="https://chatsphere2.onrender.com/chat" target="_blank" class="btn btn-primary">
         <i class="fas fa-rocket"></i> Launch Chat App
       </a>
       <button class="btn btn-secondary" onclick="openModal('teamModal')">
@@ -394,6 +533,9 @@
       </button>
       <button class="btn btn-outline" onclick="openModal('howItWorksModal')">
         <i class="fas fa-lightbulb"></i> How It Works
+      </button>
+      <button class="btn btn-docs" onclick="openModal('docsModal')">
+        <i class="fas fa-book"></i> Documentation
       </button>
     </div>
   </div>
@@ -409,7 +551,7 @@
       <div class="team-grid">
         <div class="team-card">
           <div class="avatar">AS</div>
-          <div class="team-name">Arnav Saklani</div>
+          <div class="team-name">Arnav Sajklani</div>
           <div class="team-id">24BCE1675</div>
           <div class="team-role">Developer</div>
         </div>
@@ -440,29 +582,97 @@
       <h2 class="modal-title">How It Works</h2>
       
       <div class="how-it-works-content">
-        <div class="feature">
-          <h3><i class="fas fa-plug"></i> Real-Time Connection</h3>
-          <p>ChatSphere uses Socket.IO to establish WebSocket connections, enabling instant bi-directional communication between users without page refreshes.</p>
+        <div class="intro-text">
+          ChatSphere is a real-time communication platform with admin-controlled room access.
         </div>
         
         <div class="feature">
-          <h3><i class="fas fa-server"></i> Node.js Backend</h3>
-          <p>Powered by a robust Node.js server that handles multiple concurrent connections efficiently, ensuring smooth performance even with many active users.</p>
+          <h3><i class="fas fa-shield-alt"></i> Admin-Controlled Access</h3>
+          <p><strong>Room Codes:</strong> Admins create secure room codes for private chat rooms.<br>
+          <strong>Approval System:</strong> Users request to join, admins approve/reject in real-time.<br>
+          <strong>User Management:</strong> Admins can remove users at any time.</p>
         </div>
         
         <div class="feature">
-          <h3><i class="fas fa-user-circle"></i> User Authentication</h3>
-          <p>Secure login system that assigns unique identities to each user, allowing personalized chat experiences and message attribution.</p>
+          <h3><i class="fas fa-exchange-alt"></i> Real-Time Communication</h3>
+          <p>Uses WebSocket protocol via Socket.IO for bi-directional messaging, ensuring instant message delivery without polling or page refreshes.</p>
         </div>
         
         <div class="feature">
-          <h3><i class="fas fa-comments"></i> Instant Messaging</h3>
-          <p>Messages are transmitted instantly through WebSocket protocols, providing a seamless chat experience with minimal latency.</p>
+          <h3><i class="fas fa-code"></i> Technology Stack</h3>
+          <p><strong>Backend:</strong> Node.js + Express.js<br>
+          <strong>Real-Time:</strong> Socket.IO<br>
+          <strong>Frontend:</strong> Vanilla JavaScript (ES6+)</p>
         </div>
         
         <div class="feature">
-          <h3><i class="fas fa-cloud"></i> Cloud Deployment</h3>
-          <p>Hosted on Render for reliable uptime and scalability, with GitHub Pages serving the static frontend for optimal performance.</p>
+          <h3><i class="fas fa-star"></i> Features</h3>
+          <p>• Automatic port fallback (handles port conflicts)<br>
+          • Graceful disconnect handling<br>
+          • Real-time notifications<br>
+          • Dynamic user list updates</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Documentation Modal -->
+  <div id="docsModal" class="modal">
+    <div class="modal-content">
+      <button class="close-btn" onclick="closeModal('docsModal')">
+        <i class="fas fa-times"></i>
+      </button>
+      <h2 class="modal-title">Documentation</h2>
+      
+      <div class="docs-content">
+        <div class="docs-section">
+          <h3><i class="fas fa-play-circle"></i> Getting Started</h3>
+          <p>ChatSphere uses a simple room-based architecture with admin controls. To get started:</p>
+          <h4>For Admins:</h4>
+          <ul>
+            <li>Click "Create Room" and generate a unique room code</li>
+            <li>Share the room code with participants</li>
+            <li>Approve or reject join requests as they come in</li>
+            <li>Manage users and moderate the conversation</li>
+          </ul>
+          <h4>For Users:</h4>
+          <ul>
+            <li>Enter the room code provided by the admin</li>
+            <li>Wait for admin approval</li>
+            <li>Start chatting once approved</li>
+          </ul>
+        </div>
+
+        <div class="docs-section">
+          <h3><i class="fas fa-cog"></i> System Architecture</h3>
+          <p><strong>Server Side:</strong> Built with Node.js and Express.js, the server handles HTTP requests and WebSocket connections through Socket.IO.</p>
+          <p><strong>Real-Time Layer:</strong> Socket.IO manages bidirectional communication between clients and server using WebSocket protocol with automatic fallback mechanisms.</p>
+          <p><strong>Client Side:</strong> Vanilla JavaScript (ES6+) provides a lightweight, fast interface without framework overhead.</p>
+        </div>
+
+        <div class="docs-section">
+          <h3><i class="fas fa-network-wired"></i> Key Events</h3>
+          <p>The application uses Socket.IO events for real-time communication:</p>
+          <ul>
+            <li><code>create-room</code> - Admin creates a new room</li>
+            <li><code>join-request</code> - User requests to join a room</li>
+            <li><code>approve-user</code> - Admin approves a join request</li>
+            <li><code>reject-user</code> - Admin rejects a join request</li>
+            <li><code>send-message</code> - Send a message to the room</li>
+            <li><code>user-disconnected</code> - Handle user disconnections</li>
+            <li><code>remove-user</code> - Admin removes a user from room</li>
+          </ul>
+        </div>
+
+        <div class="docs-section">
+          <h3><i class="fas fa-wrench"></i> Technical Features</h3>
+          <ul>
+            <li><strong>Port Fallback:</strong> Automatically tries alternative ports if the default is occupied</li>
+            <li><strong>Graceful Disconnection:</strong> Handles network interruptions and reconnection attempts</li>
+            <li><strong>Real-Time Notifications:</strong> Instant updates for join requests, approvals, and user actions</li>
+            <li><strong>Dynamic Updates:</strong> User lists and room states update automatically without page refresh</li>
+            <li><strong>Room Isolation:</strong> Each room is completely isolated with separate user lists and message streams</li>
+          </ul>
         </div>
       </div>
     </div>
@@ -473,6 +683,38 @@
   </footer>
 
   <script>
+    // Create animated stars
+    function createStars() {
+      const starsContainer = document.getElementById('stars');
+      const numberOfStars = 100;
+      
+      for (let i = 0; i < numberOfStars; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        
+        // Random horizontal position
+        star.style.left = Math.random() * 100 + '%';
+        
+        // Random animation duration (3-8 seconds for faster movement)
+        star.style.animationDuration = (Math.random() * 5 + 3) + 's';
+        
+        // Random delay
+        star.style.animationDelay = Math.random() * 10 + 's';
+        
+        // Random size (1-3px)
+        const size = Math.random() * 2 + 1;
+        star.style.width = size + 'px';
+        star.style.height = size + 'px';
+        
+        // Random opacity
+        star.style.opacity = Math.random() * 0.5 + 0.2;
+        
+        starsContainer.appendChild(star);
+      }
+    }
+    
+    createStars();
+    
     function openModal(modalId) {
       document.getElementById(modalId).classList.add('active');
       document.body.style.overflow = 'hidden';
