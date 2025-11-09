@@ -12,8 +12,49 @@
       padding: 0;
       box-sizing: border-box;
     }
+    
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+    
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+    
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateX(-50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+    
     body {
-      background: linear-gradient(135deg, #0a0a0f, #16213e, #0f3460);
+      background: linear-gradient(135deg, #0a0a0f, #16213e, #0f3460, #1a1a2e);
+      background-size: 400% 400%;
+      animation: gradientShift 15s ease infinite;
       color: white;
       font-family: 'Inter', sans-serif;
       display: flex;
@@ -23,68 +64,200 @@
       min-height: 100vh;
       text-align: center;
       padding: 2rem;
+      overflow-x: hidden;
     }
+    
     .hero {
-      margin-bottom: 4rem;
+      margin-bottom: 3rem;
+      animation: fadeInUp 1s ease;
     }
+    
     h1 {
-      font-size: 3rem;
-      background: linear-gradient(135deg, #5865f2, #57f287);
+      font-size: 3.5rem;
+      background: linear-gradient(135deg, #5865f2, #57f287, #5865f2);
+      background-size: 200% 200%;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       margin-bottom: 1rem;
+      animation: gradientShift 3s ease infinite;
     }
+    
+    h1 i {
+      animation: float 3s ease-in-out infinite;
+      display: inline-block;
+    }
+    
     .subtitle {
       color: #b9bbbe;
       max-width: 600px;
       margin: 0 auto 2rem;
       font-size: 1.1rem;
+      animation: fadeInUp 1s ease 0.2s both;
     }
-    .cta-button {
-      display: inline-block;
+    
+    .button-group {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+      animation: fadeInUp 1s ease 0.4s both;
+    }
+    
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
       padding: 1rem 2rem;
       border-radius: 12px;
-      background: linear-gradient(135deg, #5865f2, #7289da);
       color: white;
       text-decoration: none;
       font-weight: 600;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.2);
+      transition: left 0.5s ease;
+    }
+    
+    .btn:hover::before {
+      left: 100%;
+    }
+    
+    .btn-primary {
+      background: linear-gradient(135deg, #5865f2, #7289da);
       box-shadow: 0 4px 15px rgba(88, 101, 242, 0.4);
     }
-    .cta-button:hover {
-      transform: scale(1.05);
-      box-shadow: 0 6px 20px rgba(88, 101, 242, 0.6);
+    
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 25px rgba(88, 101, 242, 0.6);
     }
-    .team-section {
-      margin-top: 4rem;
+    
+    .btn-secondary {
+      background: linear-gradient(135deg, #57f287, #3ba55d);
+      box-shadow: 0 4px 15px rgba(87, 242, 135, 0.4);
+    }
+    
+    .btn-secondary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 25px rgba(87, 242, 135, 0.6);
+    }
+    
+    .btn-outline {
+      background: transparent;
+      border: 2px solid #5865f2;
+      box-shadow: 0 4px 15px rgba(88, 101, 242, 0.2);
+    }
+    
+    .btn-outline:hover {
+      background: rgba(88, 101, 242, 0.1);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 25px rgba(88, 101, 242, 0.4);
+    }
+    
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
       width: 100%;
-      max-width: 1200px;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      animation: fadeInUp 0.3s ease;
     }
-    .section-title {
+    
+    .modal.active {
+      display: flex;
+    }
+    
+    .modal-content {
+      background: linear-gradient(135deg, #1a1a2e, #16213e);
+      border-radius: 20px;
+      padding: 3rem;
+      max-width: 900px;
+      width: 90%;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+      border: 2px solid rgba(88, 101, 242, 0.3);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      animation: slideIn 0.5s ease;
+    }
+    
+    .close-btn {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+    
+    .close-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: rotate(90deg);
+    }
+    
+    .modal-title {
       font-size: 2rem;
-      margin-bottom: 3rem;
-      background: linear-gradient(135deg, #57f287, #5865f2);
+      margin-bottom: 2rem;
+      background: linear-gradient(135deg, #5865f2, #57f287);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
+    
     .team-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 2rem;
-      margin-bottom: 3rem;
     }
+    
     .team-card {
       background: rgba(255, 255, 255, 0.05);
       backdrop-filter: blur(10px);
       border-radius: 20px;
       padding: 2rem;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       border: 1px solid rgba(255, 255, 255, 0.1);
+      animation: fadeInUp 0.5s ease both;
     }
+    
+    .team-card:nth-child(1) { animation-delay: 0.1s; }
+    .team-card:nth-child(2) { animation-delay: 0.2s; }
+    .team-card:nth-child(3) { animation-delay: 0.3s; }
+    
     .team-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 10px 30px rgba(88, 101, 242, 0.3);
+      transform: translateY(-15px) scale(1.05);
+      box-shadow: 0 15px 40px rgba(88, 101, 242, 0.4);
+      border-color: rgba(88, 101, 242, 0.5);
     }
+    
     .avatar {
       width: 120px;
       height: 120px;
@@ -98,37 +271,95 @@
       font-weight: bold;
       color: white;
       border: 4px solid rgba(255, 255, 255, 0.2);
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
     }
+    
+    .team-card:hover .avatar {
+      transform: scale(1.1) rotate(5deg);
+      box-shadow: 0 12px 35px rgba(88, 101, 242, 0.5);
+    }
+    
     .team-name {
       font-size: 1.3rem;
       font-weight: 700;
       margin-bottom: 0.5rem;
       color: #fff;
     }
+    
     .team-id {
       font-size: 0.95rem;
       color: #b9bbbe;
       margin-bottom: 0.5rem;
     }
+    
     .team-role {
       font-size: 0.9rem;
       color: #57f287;
       font-weight: 600;
     }
+    
     .guide-card {
       background: rgba(87, 242, 135, 0.1);
       border: 2px solid rgba(87, 242, 135, 0.3);
     }
+    
     .guide-card .avatar {
       background: linear-gradient(135deg, #57f287, #3ba55d);
     }
+    
+    .guide-card:hover {
+      border-color: rgba(87, 242, 135, 0.6);
+      box-shadow: 0 15px 40px rgba(87, 242, 135, 0.4);
+    }
+    
+    .how-it-works-content {
+      text-align: left;
+    }
+    
+    .feature {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 15px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      border-left: 4px solid #5865f2;
+      transition: all 0.3s ease;
+      animation: fadeInUp 0.5s ease both;
+    }
+    
+    .feature:nth-child(1) { animation-delay: 0.1s; }
+    .feature:nth-child(2) { animation-delay: 0.2s; }
+    .feature:nth-child(3) { animation-delay: 0.3s; }
+    .feature:nth-child(4) { animation-delay: 0.4s; }
+    .feature:nth-child(5) { animation-delay: 0.5s; }
+    
+    .feature:hover {
+      transform: translateX(10px);
+      background: rgba(255, 255, 255, 0.08);
+      border-left-width: 6px;
+    }
+    
+    .feature h3 {
+      color: #57f287;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .feature p {
+      color: #b9bbbe;
+      line-height: 1.6;
+    }
+    
     footer {
       margin-top: 4rem;
       font-size: 0.9rem;
       color: #72767d;
       padding: 1rem;
+      animation: fadeInUp 1s ease 0.6s both;
     }
+    
     @media (max-width: 768px) {
       h1 {
         font-size: 2rem;
@@ -136,8 +367,15 @@
       .subtitle {
         font-size: 1rem;
       }
+      .button-group {
+        flex-direction: column;
+        gap: 1rem;
+      }
       .team-grid {
         grid-template-columns: 1fr;
+      }
+      .modal-content {
+        padding: 2rem;
       }
     }
   </style>
@@ -146,34 +384,86 @@
   <div class="hero">
     <h1><i class="fas fa-comments"></i> Welcome to ChatSphere</h1>
     <p class="subtitle">Experience seamless real-time communication powered by Node.js & Socket.IO</p>
-    <a href="https://chatsphere2.onrender.com/" target="_blank" class="cta-button">
-      <i class="fas fa-rocket"></i> Launch Chat App
-    </a>
+    
+    <div class="button-group">
+      <a href="https://chatsphere2.onrender.com/" target="_blank" class="btn btn-primary">
+        <i class="fas fa-rocket"></i> Launch Chat App
+      </a>
+      <button class="btn btn-secondary" onclick="openModal('teamModal')">
+        <i class="fas fa-users"></i> Developed By
+      </button>
+      <button class="btn btn-outline" onclick="openModal('howItWorksModal')">
+        <i class="fas fa-lightbulb"></i> How It Works
+      </button>
+    </div>
   </div>
 
-  <div class="team-section">
-    <h2 class="section-title">Developed By</h2>
-    
-    <div class="team-grid">
-      <div class="team-card">
-        <div class="avatar">AS</div>
-        <div class="team-name">Arnav Saklani</div>
-        <div class="team-id">24BCE1675</div>
-        <div class="team-role">Developer</div>
-      </div>
+  <!-- Team Modal -->
+  <div id="teamModal" class="modal">
+    <div class="modal-content">
+      <button class="close-btn" onclick="closeModal('teamModal')">
+        <i class="fas fa-times"></i>
+      </button>
+      <h2 class="modal-title">Developed By</h2>
+      
+      <div class="team-grid">
+        <div class="team-card">
+          <div class="avatar">AS</div>
+          <div class="team-name">Arnav Saklani</div>
+          <div class="team-id">24BCE1675</div>
+          <div class="team-role">Developer</div>
+        </div>
 
-      <div class="team-card">
-        <div class="avatar">AS</div>
-        <div class="team-name">Ashwin Sanjay</div>
-        <div class="team-id">24BCE1511</div>
-        <div class="team-role">Developer</div>
-      </div>
+        <div class="team-card">
+          <div class="avatar">AS</div>
+          <div class="team-name">Ashwin Sanjay</div>
+          <div class="team-id">24BCE1511</div>
+          <div class="team-role">Developer</div>
+        </div>
 
-      <div class="team-card guide-card">
-        <div class="avatar">SA</div>
-        <div class="team-name">Dr. Swaminathan Annadurai</div>
-        <div class="team-id"></div>
-        <div class="team-role">Project Guide</div>
+        <div class="team-card guide-card">
+          <div class="avatar">SA</div>
+          <div class="team-name">Dr. Swaminathan Annadurai</div>
+          <div class="team-id"></div>
+          <div class="team-role">Project Guide</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- How It Works Modal -->
+  <div id="howItWorksModal" class="modal">
+    <div class="modal-content">
+      <button class="close-btn" onclick="closeModal('howItWorksModal')">
+        <i class="fas fa-times"></i>
+      </button>
+      <h2 class="modal-title">How It Works</h2>
+      
+      <div class="how-it-works-content">
+        <div class="feature">
+          <h3><i class="fas fa-plug"></i> Real-Time Connection</h3>
+          <p>ChatSphere uses Socket.IO to establish WebSocket connections, enabling instant bi-directional communication between users without page refreshes.</p>
+        </div>
+        
+        <div class="feature">
+          <h3><i class="fas fa-server"></i> Node.js Backend</h3>
+          <p>Powered by a robust Node.js server that handles multiple concurrent connections efficiently, ensuring smooth performance even with many active users.</p>
+        </div>
+        
+        <div class="feature">
+          <h3><i class="fas fa-user-circle"></i> User Authentication</h3>
+          <p>Secure login system that assigns unique identities to each user, allowing personalized chat experiences and message attribution.</p>
+        </div>
+        
+        <div class="feature">
+          <h3><i class="fas fa-comments"></i> Instant Messaging</h3>
+          <p>Messages are transmitted instantly through WebSocket protocols, providing a seamless chat experience with minimal latency.</p>
+        </div>
+        
+        <div class="feature">
+          <h3><i class="fas fa-cloud"></i> Cloud Deployment</h3>
+          <p>Hosted on Render for reliable uptime and scalability, with GitHub Pages serving the static frontend for optimal performance.</p>
+        </div>
       </div>
     </div>
   </div>
@@ -181,5 +471,35 @@
   <footer>
     <p>© 2025 ChatSphere | Powered by Render & GitHub Pages</p>
   </footer>
+
+  <script>
+    function openModal(modalId) {
+      document.getElementById(modalId).classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    
+    function closeModal(modalId) {
+      document.getElementById(modalId).classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+    
+    // Close modal when clicking outside
+    window.onclick = function(event) {
+      if (event.target.classList.contains('modal')) {
+        event.target.classList.remove('active');
+        document.body.style.overflow = 'auto';
+      }
+    }
+    
+    // Close modal with Escape key
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape') {
+        document.querySelectorAll('.modal').forEach(modal => {
+          modal.classList.remove('active');
+        });
+        document.body.style.overflow = 'auto';
+      }
+    });
+  </script>
 </body>
 </html>
